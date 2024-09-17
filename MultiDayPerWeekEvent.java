@@ -1,6 +1,10 @@
-package calendar;
 
+
+import java.util.Calendar;
 import java.util.GregorianCalendar;
+
+import calendar.Meeting;
+import calendar.MeetingCalendar;
 
 public class MultiDayPerWeekEvent extends CalendarEvent 
 {
@@ -11,14 +15,46 @@ public class MultiDayPerWeekEvent extends CalendarEvent
 		super(desc, loc, start, end);
 		repeatUntil = repeat;
 		days = day;
-		
-		// TODO Auto-generated constructor stub
 	}
 	
 	@Override
 	public void scheduleEvent(MeetingCalendar cal) 
 	{
-		// TODO Auto-generated method stub
+		Meeting multi = new Meeting(getDescription(), getLocation(), getStartTime(), getEndTime());
+		GregorianCalendar multiStart = getStartTime();
+		GregorianCalendar multiEnd = getEndTime();
+		GregorianCalendar multiFinal = getRepeatUntil();
+		int days[] = getDays();
+		int l = days.length;
+		int i = 0;
+		multiStart.setFirstDayOfWeek(0);
+		int cont = 0;
+		boolean timeOver = false;
+		while(timeOver == false)
+		{
+			
+			cont = multiStart.compareTo(multiFinal);
+			if(cont > 0)
+			{
+				timeOver = true;
+				return;
+				
+			}
+			else
+			{
+				multi.setStartTime(multiStart);
+				multi.setEndTime(multiEnd);
+				cal.addMeeting(multi);
+				multiStart.set(Calendar.DAY_OF_WEEK, days[i]);
+				multiEnd.set(Calendar.DAY_OF_WEEK, days[i]);
+				i++;
+				if(i >= l)
+				{
+					i = 0;
+				}
+			}
+		}
+		return;
 
 	}
 

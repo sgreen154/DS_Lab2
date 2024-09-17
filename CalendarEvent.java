@@ -1,6 +1,8 @@
-package calendar;
+
 
 import java.util.GregorianCalendar;
+
+import calendar.MeetingCalendar;
 
 public abstract class CalendarEvent
 {
@@ -11,6 +13,10 @@ public abstract class CalendarEvent
 	
 	public CalendarEvent(String desc, String loc, GregorianCalendar start, GregorianCalendar end)
 	{
+		description = desc;
+		location = loc;
+		startTime = start;
+		endTime = end;
 	}
 	
 	public abstract void scheduleEvent(MeetingCalendar cal);
