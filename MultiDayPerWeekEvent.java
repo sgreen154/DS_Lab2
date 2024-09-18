@@ -26,7 +26,11 @@ public class MultiDayPerWeekEvent extends CalendarEvent
 		GregorianCalendar multiFinal = getRepeatUntil();
 		int days[] = getDays();
 		int l = days.length;
-		int i = 0;
+		boolean week[] = {false, false, false, false, false, false, false};
+		for(int i = 0; i < l; i++)
+		{
+			
+		}
 		multiStart.setFirstDayOfWeek(0);
 		int cont = 0;
 		boolean timeOver = false;

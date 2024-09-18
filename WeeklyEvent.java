@@ -20,31 +20,17 @@ public class WeeklyEvent extends CalendarEvent
 	public void scheduleEvent(MeetingCalendar cal)
 	{
 		Meeting weekly = new Meeting(getDescription(), getLocation(), getStartTime(), getEndTime());
-		GregorianCalendar weeklyStart = getStartTime();
-		GregorianCalendar weeklyEnd = getEndTime();
+		GregorianCalendar weeklyStart = (GregorianCalendar) getStartTime().clone();
+		GregorianCalendar weeklyEnd = (GregorianCalendar) getEndTime().clone();
 		GregorianCalendar weeklyFinal = getRepeatUntil();
-		int cont = 0;
-		boolean timeOver = false;
-		while(timeOver == false)
+		while(weeklyStart.compareTo(weeklyFinal) <= 0)
 		{
-			
-			cont = weeklyStart.compareTo(weeklyFinal);
-			if(cont > 0)
-			{
-				timeOver = true;
-				return;
-				
-			}
-			else
-			{
 				weekly.setStartTime(weeklyStart);
 				weekly.setEndTime(weeklyEnd);
 				cal.addMeeting(weekly);
 				weeklyStart.add(Calendar.DAY_OF_MONTH, 7);
 				weeklyEnd.add(Calendar.DAY_OF_MONTH, 7);
-			}
 		}
-		return;
 	}
 
 	public GregorianCalendar getRepeatUntil()
