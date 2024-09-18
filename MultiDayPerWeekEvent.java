@@ -21,45 +21,157 @@ public class MultiDayPerWeekEvent extends CalendarEvent
 	public void scheduleEvent(MeetingCalendar cal) 
 	{
 		Meeting multi = new Meeting(getDescription(), getLocation(), getStartTime(), getEndTime());
-		GregorianCalendar multiStart = getStartTime();
-		GregorianCalendar multiEnd = getEndTime();
+		GregorianCalendar multiStart = (GregorianCalendar) getStartTime().clone();
+		GregorianCalendar multiEnd = (GregorianCalendar) getEndTime().clone();
 		GregorianCalendar multiFinal = getRepeatUntil();
 		int days[] = getDays();
 		int l = days.length;
+		boolean start = false;
 		boolean week[] = {false, false, false, false, false, false, false};
 		for(int i = 0; i < l; i++)
 		{
-			
+			week[days[i]] = true;
 		}
-		multiStart.setFirstDayOfWeek(0);
-		int cont = 0;
-		boolean timeOver = false;
-		while(timeOver == false)
+		while(true)
 		{
-			
-			cont = multiStart.compareTo(multiFinal);
-			if(cont > 0)
+			if(multiStart.compareTo(multiFinal) > 0)
 			{
-				timeOver = true;
 				return;
-				
 			}
-			else
+			if(multiStart.get(Calendar.DAY_OF_WEEK) == 0)
 			{
-				multi.setStartTime(multiStart);
-				multi.setEndTime(multiEnd);
-				cal.addMeeting(multi);
-				multiStart.set(Calendar.DAY_OF_WEEK, days[i]);
-				multiEnd.set(Calendar.DAY_OF_WEEK, days[i]);
-				i++;
-				if(i >= l)
+				if(week[0] == true)
 				{
-					i = 0;
+					start = true;
+					multi.setStartTime(multiStart);
+					multi.setEndTime(multiEnd);
+					cal.addMeeting(multi);
 				}
 			}
+			if(start == true)
+			{
+				multiStart.add(Calendar.DAY_OF_MONTH, 1);
+				multiEnd.add(Calendar.DAY_OF_MONTH, 1);
+			}
+			if(multiStart.compareTo(multiFinal) > 0)
+			{
+				return;
+			}
+			if(multiStart.get(Calendar.DAY_OF_WEEK) == 1)
+			{
+				if(week[1] == true)
+				{
+					start = true;
+					multi.setStartTime(multiStart);
+					multi.setEndTime(multiEnd);
+					cal.addMeeting(multi);
+				}
+			}
+			if(start == true)
+			{
+				multiStart.add(Calendar.DAY_OF_MONTH, 1);
+				multiEnd.add(Calendar.DAY_OF_MONTH, 1);
+			}
+			if(multiStart.compareTo(multiFinal) > 0)
+			{
+				return;
+			}
+			if(multiStart.get(Calendar.DAY_OF_WEEK) == 2)
+			{
+				if(week[2] == true)
+				{
+					start = true;
+					multi.setStartTime(multiStart);
+					multi.setEndTime(multiEnd);
+					cal.addMeeting(multi);
+				}
+			}
+			if(start == true)
+			{
+				multiStart.add(Calendar.DAY_OF_MONTH, 1);
+				multiEnd.add(Calendar.DAY_OF_MONTH, 1);
+			}
+			
+			if(multiStart.compareTo(multiFinal) > 0)
+			{
+				return;
+			}
+			if(multiStart.get(Calendar.DAY_OF_WEEK) == 3)
+			{
+				if(week[3] == true)
+				{
+					start = true;
+					multi.setStartTime(multiStart);
+					multi.setEndTime(multiEnd);
+					cal.addMeeting(multi);
+				}
+			}
+			if(start == true)
+			{
+				multiStart.add(Calendar.DAY_OF_MONTH, 1);
+				multiEnd.add(Calendar.DAY_OF_MONTH, 1);
+			}
+			
+			if(multiStart.compareTo(multiFinal) > 0)
+			{
+				return;
+			}
+			if(multiStart.get(Calendar.DAY_OF_WEEK) == 4)
+			{
+				if(week[4] == true)
+				{
+					start = true;
+					multi.setStartTime(multiStart);
+					multi.setEndTime(multiEnd);
+					cal.addMeeting(multi);
+				}
+			}
+			if(start == true)
+			{
+				multiStart.add(Calendar.DAY_OF_MONTH, 1);
+				multiEnd.add(Calendar.DAY_OF_MONTH, 1);
+			}
+			
+			if(multiStart.compareTo(multiFinal) > 0)
+			{
+				return;
+			}
+			if(multiStart.get(Calendar.DAY_OF_WEEK) == 5)
+			{
+				if(week[5] == true)
+				{
+					start = true;
+					multi.setStartTime(multiStart);
+					multi.setEndTime(multiEnd);
+					cal.addMeeting(multi);
+				}
+			}
+			if(start == true)
+			{
+				multiStart.add(Calendar.DAY_OF_MONTH, 1);
+				multiEnd.add(Calendar.DAY_OF_MONTH, 1);
+			}
+			
+			if(multiStart.compareTo(multiFinal) > 0)
+			{
+				return;
+			}
+			if(multiStart.get(Calendar.DAY_OF_WEEK) == 6)
+			{
+				if(week[6] == true)
+				{
+					start = true;
+					multi.setStartTime(multiStart);
+					multi.setEndTime(multiEnd);
+					cal.addMeeting(multi);
+				}
+			}
+			if(start == true)
+			{
+				multiStart.add(Calendar.DAY_OF_MONTH, 1);
+				multiEnd.add(Calendar.DAY_OF_MONTH, 1);
+			}
 		}
-		return;
-
 	}
 
 	public GregorianCalendar getRepeatUntil() {
